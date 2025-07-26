@@ -40,6 +40,6 @@ public interface AiLikeMapper {
      * @param aiId AI ID
      * @return 点赞总数
      */
-    @Select("SELECT COUNT(*) FROM ai_likes WHERE ai_id = #{aiId}")
+    @Select("SELECT likes FROM ai_roles where ai_id = #{aiId}")
     int countLikesByAiId(Long aiId);
 }

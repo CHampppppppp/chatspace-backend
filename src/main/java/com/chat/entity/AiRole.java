@@ -11,11 +11,14 @@ public class AiRole {
     private String createdBy;
     private Timestamp createdAt;
     private Long likes;
+    private String status;
 
     // 构造函数
-    public AiRole() {}
+    public AiRole() {
+    }
 
-    public AiRole(Long aiId, String name, String description, String prompt, String avatar, String createdBy, Timestamp createdAt, Long likes) {
+    public AiRole(Long aiId, String name, String description, String prompt, String avatar, String createdBy,
+            Timestamp createdAt, Long likes, String status) {
         this.aiId = aiId;
         this.name = name;
         this.description = description;
@@ -24,6 +27,7 @@ public class AiRole {
         this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.likes = likes;
+        this.status = status;
     }
 
     // Getter 和 Setter 方法
@@ -91,9 +95,17 @@ public class AiRole {
         this.likes = likes;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "AiRole{" +
+        return " AiRole { " +
                 "aiId=" + aiId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
@@ -102,6 +114,7 @@ public class AiRole {
                 ", createdBy=" + createdBy +
                 ", createdAt=" + createdAt +
                 ", likes=" + likes +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

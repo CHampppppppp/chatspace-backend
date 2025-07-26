@@ -31,4 +31,12 @@ public interface AdminMapper {
      */
     @Update("UPDATE users SET password = #{newPassword} WHERE user_id = #{userId}")
     void updatePassword(Long userId, String newPassword);
+
+    /**
+     * 封禁/解封用户
+     * @param userId
+     * @param status
+     */
+    @Update("UPDATE users SET status = #{status} WHERE user_id = #{userId}")
+    void updateStatus(Long userId, Integer status);
 }

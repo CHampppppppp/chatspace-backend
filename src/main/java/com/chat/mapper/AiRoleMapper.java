@@ -11,14 +11,14 @@ import java.util.List;
 public interface AiRoleMapper {
 
     /**
-     * 获取所有AI角色列表
+     * 获取所有AI角色列表(只返回需要的数据)
      * @return AI角色列表
      */
-    @Select("SELECT * FROM ai_roles ORDER BY created_at DESC")
+    @Select("SELECT ai_id, name, avatar, status FROM ai_roles ORDER BY created_at DESC")
     List<AiRole> findAllAiRoles();
 
     /**
-     * 根据AI ID查询AI角色
+     * 根据AI ID查询AI角色(返回所有数据)
      * @param aiId AI ID
      * @return AI角色信息
      */

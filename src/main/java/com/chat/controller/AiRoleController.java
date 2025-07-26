@@ -29,13 +29,7 @@ public class AiRoleController {
         try {
             List<AiRole> aiRoles = aiRoleService.getAllAiRoles();
             
-            if (aiRoles != null) {
-                // 为每个AI角色设置实时的点赞数
-                for (AiRole aiRole : aiRoles) {
-                    int likeCount = aiRoleService.getLikeCount(aiRole.getAiId());
-                    aiRole.setLikes((long) likeCount);
-                }
-                
+            if (aiRoles != null) {              
                 response.put("code", 200);
                 response.put("msg", "获取AI列表成功");
                 response.put("data", aiRoles);
