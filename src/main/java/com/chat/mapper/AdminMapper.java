@@ -14,7 +14,7 @@ public interface AdminMapper {
      * @param userId
      * @return
      */
-    @Select("SELECT user_id, username, password, role, email, avatar, status, created_at, lastseen, age, gender, signature FROM users WHERE user_id = #{userId}")
+    @Select("SELECT user_id, username, role, email, avatar, status, is_blocked FROM users WHERE user_id = #{userId}")
     User getUserById(Long userId);
 
     /**
@@ -39,4 +39,11 @@ public interface AdminMapper {
      */
     @Update("UPDATE users SET status = #{status} WHERE user_id = #{userId}")
     void updateStatus(Long userId, Integer status);
+
+    /**
+     * 管理员更新用户信息
+     * @param user
+     */
+    @Update("UPDATE users SET username = #{username}, email = #{email}, avatar = #{avatar}, role = #{role}, status = #{status}, is_blocked = #{isBlocked} WHERE user_id = #{userId}")
+    int updateUserInfoAdmin(User user);
 }

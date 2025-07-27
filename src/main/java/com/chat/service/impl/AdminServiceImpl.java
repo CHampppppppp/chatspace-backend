@@ -1,8 +1,10 @@
 package com.chat.service.impl;
 
+import com.chat.dto.admin.UpdateUserInfoRequestAdmin;
+import com.chat.dto.user.UpdateUserInfoRequest;
 import com.chat.mapper.AdminMapper;
 import com.chat.service.AdminService;
-import com.chat.dto.UserDTO;
+import com.chat.dto.user.UserDTO;
 import com.chat.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +58,57 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void updatePassword(Long userId, String newPassword) {
         adminMapper.updatePassword(userId, newPassword);
+    }
+
+    /**
+     * 管理员更新用户信息
+     */
+    @Override
+    public UserDTO updateUserInfoAdmin(UpdateUserInfoRequestAdmin updateRequest) {
+        // 先查询用户是否存在
+        User existingUser = adminMapper.getUserById(updateRequest.getUserId());
+        if (existingUser == null) {
+            return null;
+        }
+
+        // 更新用户信息
+        User updateUser = new User();
+        updateUser.setUserId(updateRequest.getUserId()); // 添加这一行！
+        updateUser.setUsername(updateRequest.getUsername());
+        updateUser.setEmail(updateRequest.getEmail());
+        updateUser.setAvatar(updateRequest.getAvatar());
+        updateUser.setRole(updateRequest.getRole());
+        updateUser.setStatus(updateRequest.getStatus());
+        updateUser.setIsBlocked(updateRequest.getIsBlocked());
+
+        try {
+            int result = adminMapper.updateUserInfoAdmin(updateUser);
+            if (result > 0) {
+                // 更新成功，返回更新后的用户信息
+                User updatedUser = adminMapper.getUserById(updateRequest.getUserId());
+
+                // 转换为 UserDTO（完整映射所有字段）
+                UserDTO dto = new UserDTO();
+                dto.setUserId(updatedUser.getUserId());
+                dto.setUsername(updatedUser.getUsername());
+                dto.setRole(updatedUser.getRole());
+                dto.setEmail(updatedUser.getEmail());
+                dto.setAvatar(updatedUser.getAvatar());
+                dto.setStatus(updatedUser.getStatus());
+                dto.setCreatedAt(updatedUser.getCreatedAt());
+                dto.setLastSeen(updatedUser.getLastSeen());
+                dto.setAge(updatedUser.getAge());
+                dto.setGender(updatedUser.getGender());
+                dto.setSignature(updatedUser.getSignature());
+                dto.setIsBlocked(updatedUser.getIsBlocked());
+
+                return dto;
+            } else {
+                return null; // 更新失败
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

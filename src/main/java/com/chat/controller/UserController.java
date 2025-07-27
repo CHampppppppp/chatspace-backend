@@ -1,11 +1,11 @@
 package com.chat.controller;
 
-import com.chat.dto.ChangePasswordRequest;
-import com.chat.dto.LoginRequest;
-import com.chat.dto.LogoutRequest;
-import com.chat.dto.RegisterRequest;
-import com.chat.dto.UpdateUserInfoRequest;
-import com.chat.dto.UserDTO;
+import com.chat.dto.user.ChangePasswordRequest;
+import com.chat.dto.user.LoginRequest;
+import com.chat.dto.user.LogoutRequest;
+import com.chat.dto.user.RegisterRequest;
+import com.chat.dto.user.UpdateUserInfoRequest;
+import com.chat.dto.user.UserDTO;
 import com.chat.entity.User;
 import com.chat.mapper.UserMapper;
 import com.chat.service.UserService;

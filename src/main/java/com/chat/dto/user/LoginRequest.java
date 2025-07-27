@@ -1,4 +1,4 @@
-package com.chat.dto;
+package com.chat.dto.user;
 
 public class LoginRequest {
     private String username;

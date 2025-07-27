@@ -1,5 +1,7 @@
 package com.chat.controller;
 
+import com.chat.dto.admin.UpdateUserInfoRequestAdmin;
+import com.chat.dto.user.UserDTO;
 import com.chat.mapper.AdminMapper;
 import com.chat.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +33,7 @@ public class AdminController {
     @GetMapping("/{userId}") // 此映射现在是查看用户信息所独有的
     public Map<String, Object> getUserInfo(@PathVariable Long userId) {
         Map<String, Object> response = new HashMap<>();
-        com.chat.dto.UserDTO userDTO = adminService.getUserById(userId);
+        UserDTO userDTO = adminService.getUserById(userId);
 
         if (userDTO != null) {
             response.put("code", 200);
@@ -103,6 +105,33 @@ public class AdminController {
             response.put("code", 400); //
             response.put("msg", "密码更新失败" + e.getMessage());
         }
+        return response;
+    }
+
+    /**
+     * 管理员更新用户信息
+     */
+    @PostMapping("/user/info")
+    public Map<String, Object> updateUserInfo(@RequestBody UpdateUserInfoRequestAdmin updateRequest) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            UserDTO updatedUser = adminService.updateUserInfoAdmin(updateRequest);
+
+            if (updatedUser != null) {
+                response.put("code", 200);
+                response.put("msg", "个人信息已保存");
+                response.put("data", updatedUser);
+            } else {
+                response.put("code", 400);
+                response.put("msg", "更新失败，用户不存在或数据错误");
+            }
+        } catch (Exception e) {
+            log.error("管理员更新用户信息异常", e);
+            response.put("code", 500);
+            response.put("msg", "服务器内部错误: " + e.getMessage());
+        }
+
         return response;
     }
 }
