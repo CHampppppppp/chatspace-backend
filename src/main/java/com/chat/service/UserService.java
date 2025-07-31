@@ -1,7 +1,8 @@
 package com.chat.service;
 
+import com.chat.DTO.UserDTO;
 import com.chat.dto.UpdateUserInfoRequest;
-import com.chat.dto.UserDTO;
+
 
 public interface UserService {
     /**

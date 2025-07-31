@@ -1,7 +1,7 @@
 package com.chat.service.impl;
 
+import com.chat.DTO.UserDTO;
 import com.chat.dto.UpdateUserInfoRequest;
-import com.chat.dto.UserDTO;
 import com.chat.entity.User;
 import com.chat.mapper.UserMapper;
 import com.chat.service.UserService;

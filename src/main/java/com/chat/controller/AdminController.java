@@ -1,5 +1,6 @@
 package com.chat.controller;
 
+import com.chat.DTO.UserDTO;
 import com.chat.mapper.AdminMapper;
 import com.chat.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class AdminController {
     @GetMapping("/{userId}") // 此映射现在是查看用户信息所独有的
     public Map<String, Object> getUserInfo(@PathVariable Long userId) {
         Map<String, Object> response = new HashMap<>();
-        com.chat.dto.UserDTO userDTO = adminService.getUserById(userId);
+        com.chat.DTO.UserDTO userDTO = adminService.getUserById(userId);
 
         if (userDTO != null) {
             response.put("code", 200);
@@ -105,4 +106,62 @@ public class AdminController {
         }
         return response;
     }
+
+    /**
+     * 封禁/解除封禁用户
+     * 路径: /api/admin/{user_id}/block
+     * 返回: { "code": 200, "msg": "已封禁/已解除封禁" }
+     * @param userId
+     * @return
+     */
+    @PostMapping("/{userId}/block")
+    public Map<String, Object> toggleBlockStatus(@PathVariable Long userId) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            // 第一次查找：判断原始状态
+            UserDTO user = adminService.getUserById(userId);
+            if (user == null) {
+                response.put("code", 400);
+                response.put("msg", "用户不存在");
+                return response;
+            }
+
+            int originalStatus = user.getIsBlocked();
+
+            // 切换状态
+            adminService.toggleBlockStatus(userId);
+
+            // 使用切换前的状态判断提示
+            String message = (originalStatus == 0) ? "已封禁" : "已解除封禁";
+
+            response.put("code", 200);
+            response.put("msg", message);
+        } catch (Exception e) {
+            response.put("code", 500);
+            response.put("msg", "操作失败: " + e.getMessage());
+        }
+        return response;
+    }
+
+    /**
+     * 获取用户列表
+     * 路径: /api/admin/users/list
+     * @return
+     */
+    @GetMapping("/users/list")
+    public Map<String, Object> getUserList() {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Map<String, Object> data = adminService.getUserList();
+            response.put("code", 200);
+            response.put("msg", "获取用户列表成功");
+            response.put("data", data);
+        } catch (Exception e) {
+            response.put("code", 400);
+            response.put("msg", "获取用户列表失败: " + e.getMessage());
+            response.put("data", new HashMap<>()); // Return empty data map on error
+        }
+        return response;
+    }
+
 }

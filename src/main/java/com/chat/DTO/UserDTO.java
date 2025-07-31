@@ -1,4 +1,4 @@
-package com.chat.dto;
+package com.chat.DTO;
 
 import java.sql.Timestamp;
 
@@ -14,6 +14,7 @@ public class UserDTO {
     private Integer age;
     private String gender;
     private String signature;
+    private int isBlocked;
 
     // Getters and Setters
     public Long getUserId() {
@@ -91,5 +92,13 @@ public class UserDTO {
     }
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public int getIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(int isBlocked) {
+        this.isBlocked = isBlocked;
     }
 }
