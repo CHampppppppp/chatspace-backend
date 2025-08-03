@@ -77,9 +77,7 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         // 生成随机用户ID：时间戳 + 随机数
         long timestamp = System.currentTimeMillis();
-        Random random = new Random();
-        long randomSuffix = random.nextInt(10000); // 0-9999的随机数
-        long userId = Long.parseLong(String.valueOf(timestamp) + String.format("%04d", randomSuffix));
+        long userId = Long.parseLong(String.valueOf(timestamp));
         newUser.setUserId(userId);
         newUser.setUsername(username);
         newUser.setPassword(password);
