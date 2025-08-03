@@ -1,8 +1,8 @@
 package com.chat.service;
 
-import com.chat.DTO.FriendRequestDTO;
-import com.chat.DTO.FriendshipDTO;
-import com.chat.DTO.UserDTO;
+import com.chat.dto.friend.FriendRequestDTO;
+import com.chat.dto.friend.FriendshipDTO;
+import com.chat.dto.user.UserDTO;
 import com.chat.entity.FriendRequest;
 
 import java.util.List;
